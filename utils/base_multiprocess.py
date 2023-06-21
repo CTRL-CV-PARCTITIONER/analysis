@@ -43,7 +43,10 @@ class Multiprocess(Process):
             cn = size - Manager_queue.qsize()
             if cn % 288 == 0:
                 logger.info (f"child process id:{os.getpid()}  processes_number: {processes_number}  all: {size}  current execute id: {cn}")
-            result = func(q, params)
+            if params == ():
+                result = func(q)
+            else:
+                result = func(q, params)
             return result
 
     def run(self):

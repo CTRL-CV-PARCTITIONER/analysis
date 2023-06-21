@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger(os.path.basename(__file__))
 
 
-def analysis_txt_function(line, param):
+def analysis_txt_function(line):
     return {os.getpid(): line.strip()}
     
 def analysis_txt(text_path, save_path, processes_number):
@@ -39,7 +39,7 @@ def analysis_txt(text_path, save_path, processes_number):
         lines=lines,
         processes_number=processes_number,
         function=analysis_txt_function,
-        params=params,
+        # params=params,
     )
     result = Mul()
     json_dump(save_path, result)
