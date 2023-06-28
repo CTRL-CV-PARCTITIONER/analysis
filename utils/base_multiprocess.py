@@ -27,7 +27,7 @@ class Multiprocess(Process):
         self.Manager_queue = Manager().Queue()
         self.accumulator = []
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
+    def __call__(self, *args: Any, **kwds: Any) -> list:
         self.get_queue()
         self.run()
         return self.accumulator

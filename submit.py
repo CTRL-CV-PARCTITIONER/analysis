@@ -46,7 +46,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="generate video for current pipline")
-    parser.add_argument("--step", default="step5", help="img location original path")
+    parser.add_argument("--step", default="step5", help="optional step1,step2,step3,step4,step5 seperated by "_"")
     parser.add_argument("--sql", default="select * from student limit 10", help="execute sql")
     parser.add_argument("--text_path", default="C:/Users/weidong.he/Desktop/1/txt/train_FSD_Site_NC110_20221228_side.txt", help="text location original path")
     parser.add_argument("--img_path", default="C:/Users/weidong.he/Desktop/1/fisheye_front_cylinder", help="text location original path")

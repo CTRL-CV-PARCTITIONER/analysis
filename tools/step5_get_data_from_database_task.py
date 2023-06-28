@@ -51,7 +51,7 @@ class ConnectDdatabase(object):
         logger.info (self.random_color(f"{inspector} Successfully connected to the database"))
         return engine
 
-    def write_to_database(self, data) -> None:
+    def write_to_database(self, data: pd.DataFrame) -> Any:
         try:
             ret = data.to_sql(name=self.table, con=self.engine, if_exists=self.mode, index=False)
             return ret
@@ -61,7 +61,7 @@ class ConnectDdatabase(object):
         finally:
             logger.info (self.random_color(f"Write successfully to {self.database} - {self.table}"))
 
-    def read_from_database(self, sql) -> tuple:
+    def read_from_database(self, sql: str) -> tuple:
         conn = self.engine.connect()
         result = conn.execute(text(sql))
         columns = list(result.keys())
@@ -91,7 +91,6 @@ class ConnectDdatabase(object):
         logger.info (self.random_color(f"{inspector} The connection to the database '{self.database}' has been closed. Procedure"))
     
     def show(self) -> Any:
-        # get_tables = [tuplt_table for tuplt_table in self.read_from_database("show tables")[1:]]
         get_tables = [tuple_table[0] for tuple_table in list(self.read_from_database("show tables")[1:])[0]]
         logger.info (
             self.random_color(f"{self.database} tables: {str(get_tables)}")

@@ -27,8 +27,9 @@ CurrentConfig.ONLINE_HOST = "https://cdn.jsdelivr.net/npm/echarts@latest/dist/"
 
 class echarts(object):
     
-    def __init__(self, data) -> None:
+    def __init__(self, data, save_path) -> None:
         self.data = data
+        self.save_path = save_path
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         self.case()
@@ -38,8 +39,8 @@ class echarts(object):
     def line(self):
         line = (
             Line()
-            .add_xaxis(["A", "B", "C", "D", "E"])
-            .add_yaxis("Series 2", [5, 4, 3, 2, 1])
+            .add_xaxis([i[0] for i in self.data])
+            .add_yaxis("Series 2", [i[1] for i in self.data])
             .set_global_opts(
                 title_opts=opts.TitleOpts(
                     title="line",
@@ -55,8 +56,8 @@ class echarts(object):
     def bar(self):
         bar = (
             Bar()
-            .add_xaxis(["A", "B", "C", "D", "E"])
-            .add_yaxis("Series 1", [1, 3, 2, 5, 4])
+            .add_xaxis([i[0] for i in self.data])
+            .add_yaxis("Series 1", [i[1] for i in self.data])
             .set_global_opts(
                 title_opts=opts.TitleOpts(
                     title="bar",
@@ -194,7 +195,7 @@ class echarts(object):
             .add(self.funnel(), 'funnel')
             .add(self.surface3D(), 'surface3D')
         )
-        tab.render()
+        tab.render(self.save_path)
 
     #Sequential multigraph
     def page(self):
@@ -210,7 +211,7 @@ class echarts(object):
         )
         page.width = "auto"
         page.height = "auto"
-        page.render()
+        page.render(self.save_path)
 
     def time_line(self):
         timeline = (
@@ -229,7 +230,8 @@ class echarts(object):
                 is_loop_play=True,
             )
         )
-        timeline.render()
+        timeline.height = "900%"
+        timeline.render(self.save_path)
 
     #save to png
     def make_snapshot(self):
@@ -254,7 +256,7 @@ class echarts(object):
                 )
             )
         )
-        line.render()
+        line.render(self.save_path)
     
 
 
@@ -263,13 +265,5 @@ if __name__ == "__main__":
     parser.add_argument("--data_path", default="C:/Users/weidong.he/Desktop/1/bigsize_V2", help="img location original path")
     parser.add_argument("--save_path", default="C:/Users/weidong.he/Desktop", help="video location save path")
     args = parser.parse_args()
-    data = [
-        ("2023-01-01", 100),
-        ("2023-02-01", 200),
-        ("2023-02-10", 900),
-        ("2023-03-15", 300),
-        ("2023-04-15", 400),
-        ("2023-05-15", 500),
-    ]
-    echart = echarts(data)
-    echart.time_line()
+    data = args.data_path
+    echart = echarts(data,args.save_path)
