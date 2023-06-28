@@ -1,5 +1,6 @@
 from flask import Flask, Response, json, render_template
 from flask_sqlalchemy import SQLAlchemy
+from configuration.config import _sqlParam
 import sys
 import os
 sys.path.append(
@@ -14,7 +15,13 @@ from tools.step4_data_visualization_task import echarts
 # create flask application object
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:075600@127.0.0.1:3306/dream'
+username = _sqlParam["username"]
+password = _sqlParam["password"]
+host = _sqlParam["host"]
+port = _sqlParam["port"]
+database = _sqlParam["database"]
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 
 # create db object
