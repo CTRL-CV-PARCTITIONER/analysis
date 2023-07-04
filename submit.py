@@ -8,15 +8,16 @@ logger = logging.getLogger(os.path.basename(__file__))
 
 
 def step_execute_file(step, args) -> str:
-    if args.version == "v1":
-        step_execute_file_v1 = {
-            "step1": "python3 pipline1.0/step1_parsing_textType_task.py ",
-            "step2": "python3 pipline1.0/step2_parsing_imgType_task.py ",
-            "step3": "python3 pipline1.0/step3_generate_video_task.py ",
-            "step4": "python3 pipline1.0/step4_data_visualization_task.py ",
-            "step5": "python3 pipline1.0/step5_get_data_from_database.py ",
+    if args.version in ["v1"]:
+        step_execute_file_version = {
+            "step1": f"python3 {args.version}/step1_parsing_textType_task.py ",
+            "step2": f"python3 {args.version}/step2_parsing_imgType_task.py ",
+            "step3": f"python3 {args.version}/step3_generate_video_task.py ",
+            "step4": f"python3 {args.version}/step4_data_visualization_task.py ",
+            "step5": f"python3 {args.version}/step5_get_data_from_database.py ",
+            "step6": f"python3 {args.version}/step6_flask_real_time_visualization_task.py ",
         }
-        return step_execute_file_v1[step]
+        return step_execute_file_version[step]
     else:
         raise ModuleNotFoundError(f"version {args.version} is developing !!!")
     
@@ -34,7 +35,10 @@ def step_params(step, args) -> str:
         "step5": 
             f'--sql "{args.sql}" ',
     }
-    return step_param[step]
+    try:
+        return step_param[step]
+    except:
+        return ""
 
 
 def main(args):
@@ -46,7 +50,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="generate video for current pipline")
-    parser.add_argument("--step", default="step5", help="optional step1,step2,step3,step4,step5 seperated by "_"")
+    parser.add_argument("--step", default="step6", help="optional step1,step2,step3,step4,step5 seperated by _")
     parser.add_argument("--sql", default="select * from student limit 10", help="execute sql")
     parser.add_argument("--text_path", default="C:/Users/weidong.he/Desktop/1/txt/train_FSD_Site_NC110_20221228_side.txt", help="text location original path")
     parser.add_argument("--img_path", default="C:/Users/weidong.he/Desktop/1/fisheye_front_cylinder", help="text location original path")

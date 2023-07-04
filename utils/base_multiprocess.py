@@ -15,7 +15,7 @@ class Multiprocess(Process):
         TODO:Note that calls executing this class must be executed under if __name__ == "__main__"
         lines: Contains all the data that needs to be executed
         processes_number: Number of processes
-        function: Executive function
+        function: Executive function, At least one parameter is used to receive Element in lines
         params: Execute the parameters corresponding to the function, Pass in a tuple, and use the tuple parsing in the execution function
     """
 

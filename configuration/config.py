@@ -31,12 +31,12 @@ _type = [
 ]
 
 _sqlParam = {
-    "username": "root",
-    "password": "075600",
+    "username": "",
+    "password": "",
     "host": "127.0.0.1",
     "port": "3306",
-    "database": "dream",
+    "database": "",
     "mode": "append",
-    "table": "student_1",
-    "save": "D:/PJ/Ject/prepare_tools/1.xlsx"
+    "table": "",
+    "save": ""
 }

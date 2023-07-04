@@ -3,6 +3,8 @@ import json
 import yaml
 from yaml import SafeDumper
 import pynvml
+import random
+from configuration.config import Fore_colors, reset_color
 import os
 import logging
 logging.basicConfig(
@@ -50,6 +52,12 @@ def yaml_dump(path, load_dic):
     )
     with open(path, 'w') as output:
         yaml.safe_dump(load_dic, output, default_flow_style=False, sort_keys=False)
+
+def random_color(word: str):
+    _len = len(Fore_colors)
+    randomInt = random.randint(0, _len - 1)
+    Fore_color = Fore_colors[randomInt]
+    return Fore_color + word + reset_color
 
 if __name__ == "__main__":
     get_gpu_used()
